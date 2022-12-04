@@ -56,14 +56,14 @@ const upload = multer({storage:storage})
 //     }
 // })
 
-router.post('/signup', upload.single('upload-image'), (req, res)=>{
+router.post('/signup', upload.single('myFile'),  (req, res)=>{
     const newUser = new user({
         name:req.body.name,
         email:req.body.email,
         password:req.body.password,
         image:{
             data:fs.readFileSync('uploads/' + req.file.filename),
-            contentType:'image/png'
+            contentType:req.body.type
         }
     })
     newUser.save()
